@@ -26,7 +26,11 @@ h3 {
     box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
     transition: box-shadow 0.3s ease;
 }
-
+.tex:focus {
+    box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.2);
+    border-color: #5a5a5a;
+    outline: none;
+}
 button {
     background-color: #4CAF50;
     color: white;
