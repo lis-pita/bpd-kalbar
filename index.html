@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Wakil Kepala</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="../css/style.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
@@ -18,9 +18,9 @@
         <p id="error-message" style="color: red; display: none;">Incorrect password. Please try again.</p>
     </div>
 <div id="main-content" style="display: none;">
+    <h1>Daftar Inventaris Ruangan</h1>
+    <h3>Ruangan: Wakil Pemimpin</h3>
     <table class="pk-table" id="inv">
-        <h1>Daftar Inventaris Ruangan</h1>
-        <h3>Ruangan: Wakil Pemimpin</h3>
             <thead>
                 <tr class="rad">
                         <th rowspan="2">NO.</th>
@@ -141,14 +141,9 @@
             </tr>
             </tbody>
     </table>
-
     <div class="mydiv-button">
-        <div  class="mybutton">
-            <button onclick="generatePDF()">Download PDF Version</button>
-        </div>
-        <div  class="mybutton">
-            <button onclick="generateExcel()">Download Excel Version</button>
-        </div>
+        <button onclick="generatePDF()">Download PDF Version</button>
+        <button onclick="generateExcel()">Download Excel Version</button>
     </div>
 </div>
 <script>
