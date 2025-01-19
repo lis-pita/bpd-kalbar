@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wakil Kepala</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.25/jspdf.plugin.autotable.min.js"></script>
+</head>
+<body>
+    <div id="login-screen" style="text-align: center; padding: 50px;">
+        <h1>Enter Password to Access</h1>
+        <input type="password" id="password-input" placeholder="Enter password" />
+        <button onclick="checkPassword()">Login</button>
+        <p id="error-message" style="color: red; display: none;">Incorrect password. Please try again.</p>
+    </div>
+<div id="main-content" style="display: none;">
+    <table class="pk-table" id="inv">
+        <h1>Daftar Inventaris Ruangan</h1>
+        <h3>Ruangan: Wakil Pemimpin</h3>
+            <thead>
+                <tr class="rad">
+                        <th rowspan="2">NO.</th>
+                        <th rowspan="2">JENIS BARANG</th>
+                        <th colspan="3">SPESIFIKASI</th>
+                        <th rowspan="2">NO. BARCODE</th>
+                    </tr>
+                    <tr>
+                        <th>JENIS/MERK/TYPE</th>
+                        <th>JUMLAH</th>
+                        <th>KONDISI</th>
+                    </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>1</td>
+                    <td>AC 1 PK</td>
+                    <td>Panasonic</td>
+                    <td>1</td> 
+                    <td>Baik</td>
+                    <td>080046006540</td>
+                </tr>
+                <tr>
+                <td>2</td>
+                <td>Televisi 32 Inc</td>
+                <td>Sharp</td>
+                <td>1</td>
+                <td>Baik</td>
+                <td>080021000949</td>
+            </tr>
+            <tr>
+                <td>3</td>
+                <td>Televisi 21 Inc</td>
+                <td>Sharp</td>
+                <td>1</td>
+                <td>Baik</td>
+                <td>080021000942</td>
+            </tr>
+            <tr>
+                <td>4</td>
+                <td>Lemari Es</td>
+                <td>Sharp</td>
+                <td>1</td>
+                <td>Baik</td>
+                <td>080022000961</td>
+            </tr>
+            <tr>
+                <td>5</td>
+                <td>Komputer</td>
+                <td>Lenovo</td>
+                <td>1</td>
+                <td>Baik</td>
+                <td>080036001275</td>
+            </tr>
+            <tr>
+                <td>6</td>
+                <td>Meja WP</td>
+                <td>High Point</td>
+                <td>1</td>
+                <td>Baik</td>
+                <td>080010000388</td>
+            </tr>
+            <tr>
+                <td>7</td>
+                <td>Kursi Kerja</td>
+                <td>Archigramma</td>
+                <td>1</td>
+                <td>Baik</td>
+                <td>080046006546</td>
+            </tr>
+            <tr>
+                <td>8</td>
+                <td>Dispenser</td>
+                <td>Sharp</td>
+                <td>1</td>
+                <td>Baik</td>
+                <td>080046006547</td>
+            </tr>
+            <tr>
+                <td>9</td>
+                <td>Kursi Hadap</td>
+                <td>Archigramma</td>
+                <td>2</td>
+                <td>Baik</td>
+                <td>080046006548</td>
+            </tr>
+            <tr>
+                <td>10</td>
+                <td>Sofa Tamu</td>
+                <td>Archigramma</td>
+                <td>1 Set</td>
+                <td>Baik</td>
+                <td>080046006549</td>
+            </tr>
+            <tr>
+                <td>11</td>
+                <td>Reciver Parabola</td>
+                <td>Goldsat</td>
+                <td>1</td>
+                <td>Baik</td>
+                <td>080046006550</td>
+            </tr>
+            <tr>
+                <td>12</td>
+                <td>Telephone</td>
+                <td>Panasonic</td>
+                <td>1</td>
+                <td>Baik</td>
+                <td>080046006551</td>
+            </tr>
+            <tr>
+                <td>13</td>
+                <td>UPS</td>
+                <td>ICA</td>
+                <td>1</td>
+                <td>Baik</td>
+                <td>080046006552</td>
+            </tr>
+            </tbody>
+    </table>
+
+    <div class="mydiv-button">
+        <div  class="mybutton">
+            <button onclick="generatePDF()">Download PDF Version</button>
+        </div>
+        <div  class="mybutton">
+            <button onclick="generateExcel()">Download Excel Version</button>
+        </div>
+    </div>
+</div>
+<script>
+    const correctPassword = "123"; // Set your password here
+
+        function checkPassword() {
+            const enteredPassword = document.getElementById("password-input").value;
+
+            if (enteredPassword === correctPassword) {
+                document.getElementById("login-screen").style.display = "none";
+                document.getElementById("main-content").style.display = "block";
+            } else {
+                const errorMessage = document.getElementById("error-message");
+                errorMessage.style.display = "block";
+            }
+        }
+
+    function generateExcel() {
+            var table = document.getElementById('inv');
+            var workbook = XLSX.utils.table_to_book(table, {sheet:"Sheet1"});
+            XLSX.writeFile(workbook, 'inventory.xlsx');
+        }
+    function generatePDF() {
+        const { jsPDF } = window.jspdf;
+
+        const doc = new jsPDF();
+
+        const title = "Daftar Inventaris Ruangan";
+        const pageWidth = doc.internal.pageSize.getWidth();
+        const titleWidth = doc.getTextWidth(title);
+        const titleX = (pageWidth - titleWidth) / 2;
+        doc.text(title, titleX, 20);
+
+        doc.autoTable({ html: '#inv', startY: 30 });
+
+        const pageHeight = doc.internal.pageSize.getHeight();
+        const signY = pageHeight - 40; 
+        doc.text("Mengetahui:", 20, signY);
+        doc.text("_________________________", 20, signY + 25); 
+        doc.text("Mengetahui", 140, signY);
+        doc.text("_________________________", 120, signY + 25);
+
+        doc.save('inventory.pdf');
+    }
+</script>
+
+</body>
+</html>
